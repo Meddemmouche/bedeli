@@ -44,4 +44,8 @@ next-env.d.ts
 drizzle.sqlite3
 drizzle.config.ts
 lib/db.ts
-lib/schema.ts     
+lib/schema.ts
+local.db   
+
+# testing files
+scripts/seed.ts
