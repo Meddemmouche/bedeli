@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 
 // Define the server action (must be outside component or in a separate file)
 async function handel(formData: FormData) {
-  "use server"; // This marks it as a Server Action
 
   const key = formData.get("key");
   if (key === "create") {
