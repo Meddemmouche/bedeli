@@ -47,5 +47,7 @@ lib/db.ts
 lib/schema.ts
 local.db   
 
+/drizzle/
+
 # testing files
 scripts/seed.ts

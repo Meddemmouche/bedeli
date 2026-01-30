@@ -15,6 +15,7 @@ export const products = sqliteTable("products", {
     id: integer("id").primaryKey({ autoIncrement: true }),
     u_id: integer("u_id").references(() => users.id).notNull(),
     title: text("title").notNull(),
+    slug: text('slug').unique(),
     description: text("description").notNull(),
     condition: text("condition").notNull(),
     category: text("category").notNull(),

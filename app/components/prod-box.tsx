@@ -3,7 +3,8 @@ import Link from 'next/link';
 
 export default function Prodbox({ product }: { 
   product: { 
-    id?: string; 
+    id?: string;
+    slug?: string;
     name?: string; 
     imageUrl?: string; 
     publishDate?: string; 
@@ -27,6 +28,8 @@ export default function Prodbox({ product }: {
         day: 'numeric'
       })
     : 'Date not available';
+
+  console.log(product.slug);
 
   return (
     <div className="max-w-sm mx-auto bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
@@ -66,7 +69,7 @@ export default function Prodbox({ product }: {
         </div>
 
         <Link 
-          href={product.id ? `/product/${product.id}` : '#'}
+          href={product.slug ? `/product/${product.slug}` : '#'}
           className="mt-6 w-full bg-red-300 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 block text-center"
         >
           View Product Details
