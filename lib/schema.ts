@@ -21,6 +21,7 @@ export const products = sqliteTable("products", {
     category: text("category").notNull(),
     imageUrl: text("image").notNull(),
     createdAt: text("created_at").notNull(),
+    status: text("status").notNull().default("active"),
 });
 
 export const operations = sqliteTable("operations", {

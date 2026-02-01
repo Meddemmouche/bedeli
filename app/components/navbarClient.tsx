@@ -34,8 +34,8 @@ export default function NavbarClient({ session }: { session: Session | null }){
                 {items.map((itm) => (
                     <Link className="text-gray-700 hover:text-gray-900 font-medium" href={`/${itm.toLowerCase()}`} key={itm}>{itm}</Link>
                 ))}
-                {pathname !== "/propose" && (
-                    <Link className="text-gray-700 hover:text-gray-900 font-medium" href="/propose">Propose exchange</Link>
+                {pathname !== "/post" && (
+                    <Link className="text-gray-700 hover:text-gray-900 font-medium" href="/post">Post exchange</Link>
                 )}
             </div>
             <div className="justify-self-end">
