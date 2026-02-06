@@ -31,7 +31,6 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-.env*
 
 # vercel
 .vercel
@@ -41,13 +40,6 @@ yarn-error.log*
 next-env.d.ts
 
 # drizzle-orm
-drizzle.sqlite3
-drizzle.config.ts
-lib/db.ts
-lib/schema.ts
-local.db   
 
-/drizzle/
 
 # testing files
-scripts/seed.ts
