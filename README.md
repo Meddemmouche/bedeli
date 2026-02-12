@@ -106,8 +106,7 @@ Bedeli is a Next.js web application for product trading and proposals. Users can
 ## Tech Stack
 
 - **Framework**: Next.js with TypeScript
-- **Styling**: CSS (globals.css)
-- **Authentication**: NextAuth.js
+- **Styling**: CSS (globals.css) And Tailwind CSS
 - **Database**: Connected via lib utilities
 - **State Management**: Server actions for data mutations
 

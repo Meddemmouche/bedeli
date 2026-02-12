@@ -2,14 +2,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { auth } from '@/lib/auth';
 import { signOut } from 'next-auth/react';
-import { User, LogOut } from 'lucide-react';
+import { User, LogOut, ChartNoAxesGantt } from 'lucide-react';
 import { useState } from 'react';
 import type { Session } from 'next-auth';
 
 export default function NavbarClient({ session }: { session: Session | null }){
-    const items = ['Gifts', 'Message', 'About'];
+    const items = ['Gifts', 'Messages', 'About'];
     const pathname = usePathname();
     const [showDropdown, setShowDropdown] = useState(false);
     
@@ -63,6 +62,13 @@ export default function NavbarClient({ session }: { session: Session | null }){
                                     >
                                         <User className="w-4 h-4" />
                                         Profile
+                                    </Link>
+                                    <Link
+                                        href="/proposals"
+                                        className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
+                                    >
+                                        <ChartNoAxesGantt className="w-4 h-4" />
+                                        Proposals
                                     </Link>
                                     <button 
                                         onClick={() => signOut({ callbackUrl: '/' })}

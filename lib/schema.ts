@@ -62,3 +62,23 @@ export const proposalMessages = sqliteTable('proposal_messages', {
   message: text('message').notNull(),
   createdAt: text('created_at').notNull(),
 });
+
+export const messages = sqliteTable('messages', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  conversationId: text('conversation_id').notNull(), // Format: "user1_user2" (sorted)
+  senderId: integer('sender_id').references(() => users.id).notNull(),
+  receiverId: integer('receiver_id').references(() => users.id).notNull(),
+  content: text('content').notNull(),
+  read: integer('read', { mode: 'boolean' }).notNull().default(false),
+  createdAt: text('created_at').notNull(),
+});
+
+// Optional: Conversations table for better organization
+export const conversations = sqliteTable('conversations', {
+  id: text('id').primaryKey(), // Format: "user1_user2" (sorted)
+  user1Id: integer('user1_id').references(() => users.id).notNull(),
+  user2Id: integer('user2_id').references(() => users.id).notNull(),
+  lastMessageAt: text('last_message_at').notNull(),
+  lastMessage: text('last_message'),
+  createdAt: text('created_at').notNull(),
+});

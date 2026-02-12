@@ -161,9 +161,11 @@ export default async function ProductPage({
                     />
                 )}
                 
+              <Link href={`/messages/${product.u_id}`}>
                 <button className="w-full bg-white border-2 border-gray-200 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors">
                   Message Owner
                 </button>
+              </Link>
               </div>
             </div>
           </div>
