@@ -1,8 +1,74 @@
 // lib/products.ts
 import { db } from '@/lib/db';
-import { products } from './schema';
-import { eq } from 'drizzle-orm';
+import { products, users } from './schema';
+import { eq, and, or } from 'drizzle-orm';
 import { generateSlug } from './slugify';
+
+// lib/products.ts - Add these functions
+
+import { calculateDistance } from './location';
+
+export async function getProductsNearLocation(
+  latitude: number,
+  longitude: number,
+  maxDistance: number = 50, // km
+  limit: number = 20
+) {
+  // Get all active products with location
+  const allProducts = await db
+    .select({
+      product: products,
+      user: users,
+    })
+    .from(products)
+    .leftJoin(users, eq(products.u_id, users.id))
+    .where(eq(products.status, 'active'));
+
+  // Calculate distances and filter
+  const productsWithDistance = allProducts
+    .map(({ product, user }) => {
+      // Use product location or fallback to user location
+      const prodLat = product.latitude || user?.latitude;
+      const prodLon = product.longitude || user?.longitude;
+
+      if (!prodLat || !prodLon) {
+        return null; // Skip products without location
+      }
+
+      const distance = calculateDistance(latitude, longitude, prodLat, prodLon);
+
+      return {
+        ...product,
+        user,
+        distance,
+      };
+    })
+    .filter((p): p is NonNullable<typeof p> => p !== null && p.distance <= maxDistance)
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, limit);
+
+  return productsWithDistance;
+}
+
+export async function getProductsByCity(city: string, limit: number = 20) {
+  return await db
+    .select({
+      product: products,
+      user: users,
+    })
+    .from(products)
+    .leftJoin(users, eq(products.u_id, users.id))
+    .where(
+      and(
+        eq(products.status, 'active'),
+        or(
+          eq(products.city, city),
+          eq(users.city, city)
+        )
+      )
+    )
+    .limit(limit);
+}
 
 export async function createProduct(data: {
   userId: number;

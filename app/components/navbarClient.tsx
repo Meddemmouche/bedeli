@@ -27,7 +27,7 @@ export default function NavbarClient({ session }: { session: Session | null }){
                     </Link>
                 )}
             </div>   
-            <div className="justify-self-center flex items-center gap-12 bg-white border border-gray-300 px-6 space-x-10 py-6 rounded-md shadow-lg">
+            <div className="justify-self-center flex items-center gap-12 bg-white border border-gray-300 px-6 space-x-10 py-6 rounded-lg shadow-lg">
                 <Link className="text-gray-700 hover:text-gray-900 font-medium" href="/">Home</Link>
                 <Link className="text-gray-700 hover:text-gray-900 font-medium" href="/category">Category</Link>
                 {items.map((itm) => (

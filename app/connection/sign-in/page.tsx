@@ -3,6 +3,7 @@
 import { ArrowLeft } from "lucide-react";
 import { signup } from "@/app/actions/auth";
 import { useActionState } from "react";
+import { ALGERIAN_CITIES } from "@/lib/location"
 
 export default function SignupForm({ onBack }: { onBack: () => void }) {
   const [state, formAction, pending] = useActionState(signup, undefined);
@@ -82,6 +83,28 @@ export default function SignupForm({ onBack }: { onBack: () => void }) {
             <option value="female">Female</option>
             <option value="other">Other</option>
           </select>
+        </div>
+
+        <div className="border-t pt-4">
+          <h3 className="font-semibold text-gray-900 mb-3">Location</h3>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              City *
+            </label>
+            <select
+              name="city"
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+            >
+              <option value="">Select your city</option>
+              {ALGERIAN_CITIES.map(city => (
+                <option key={city.name} value={city.name}>
+                  {city.name}, {city.state}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
         
         <div>

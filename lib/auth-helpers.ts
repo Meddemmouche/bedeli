@@ -11,6 +11,7 @@ export async function createUser(data: {
   age: number;
   password: string;
   gender: string;
+  
 }) {
   const existingUser = await db
     .select()

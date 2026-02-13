@@ -2,12 +2,47 @@
 import { db } from '@/lib/db';
 import { products } from '@/lib/schema';
 import Prodbox from './prod-box';
+import { eq, and } from 'drizzle-orm';
+import { getProductsByCity, getProductsNearLocation } from '@/lib/products';
+import { ALGERIAN_CITIES } from '@/lib/location';
 
-export default async function ProductGrid() {
+export default async function ProductGrid({
+  city,
+  maxDistance,
+}: {
+  city?: string;
+  maxDistance?: number;
+}) {
   // Simulate slow fetch (remove this in production)
   await new Promise(resolve => setTimeout(resolve, 2000));
   
-  const allProducts = await db.select().from(products).limit(12);
+  let allProducts;
+
+  if (city) {
+    // Get city coordinates
+    const cityData = ALGERIAN_CITIES.find(c => c.name === city);
+    
+    if (cityData && maxDistance) {
+      // Get products within distance
+      allProducts = await getProductsNearLocation(
+        cityData.latitude,
+        cityData.longitude,
+        maxDistance
+      );
+    } else {
+      // Just filter by city
+      const result = await getProductsByCity(city);
+      allProducts = result.map(({ product, user }) => ({ ...product, user, distance: 0 }));
+    }
+  } else {
+    // Default: Get all products
+    allProducts = await db
+      .select()
+      .from(products)
+      .where(eq(products.status, 'active'))
+      .limit(12);
+  }
+
 
   return (
     <div className="w-full max-w-7xl">

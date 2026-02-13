@@ -5,6 +5,7 @@ import { signIn } from '@/lib/auth';
 import { createUser } from '@/lib/auth-helpers';
 import { redirect } from 'next/navigation';
 import { AuthError } from 'next-auth';
+import { ALGERIAN_CITIES } from "@/lib/location"
 
 export async function signup(
   prevState: { error: string } | undefined,
@@ -16,9 +17,22 @@ export async function signup(
   const age = parseInt(formData.get('age') as string);
   const password = formData.get('password') as string;
   const gender = formData.get('gender') as string;
+  const city = formData.get('city') as string;
+  const cityData = ALGERIAN_CITIES.find(c => c.name === city);
 
   try {
-    await createUser({ f_name, l_name, email, age, password, gender });
+    await createUser({ f_name,
+                       l_name, 
+                       email, 
+                       age, 
+                       password, 
+                       gender,
+                       city: city || null,
+                       state: cityData?.state || null,
+                       country: 'DZ',
+                       latitude: cityData?.latitude || null,
+                       longitude: cityData?.longitude || null,
+     });
     console.log('✅ User created, redirecting to login');
   } catch (error) {
     if (error instanceof Error) {

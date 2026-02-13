@@ -46,5 +46,7 @@ lib/schema.ts
 local.db
 
 # testing files
+lib/schema.ts
+scripts/seed.ts
 
 

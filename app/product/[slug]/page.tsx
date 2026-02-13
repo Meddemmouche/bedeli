@@ -10,6 +10,7 @@ import ProductGridSugg from '@/app/components/ProductGridSugg';
 import { ProductGridSkeleton } from '@/app/components/ProductSkeleton';
 import { auth } from '@/lib/auth';
 import ProposeTradeButton from '@/app/components/ProposeTradeButton';
+import { MapPin } from 'lucide-react';
 
 export default async function ProductPage({ 
   params 
@@ -94,6 +95,17 @@ export default async function ProductPage({
                 <p className="text-gray-600 text-sm">
                   Posted {new Date(productData.product.createdAt).toLocaleDateString()}
                 </p>
+              </div>
+
+              <div className="border-t pt-6">
+                <h2 className="font-semibold text-gray-900 mb-2">Location</h2>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <MapPin className="w-4 h-4" />
+                  <span>
+                    {product.city || owner?.city || 'Location not specified'}
+                    {product.city && ', Algeria'}
+                  </span>
+                </div>
               </div>
 
               <div className="border-t pt-6">
