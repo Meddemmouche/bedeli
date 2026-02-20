@@ -1,8 +1,5 @@
-import { drizzle } from "drizzle-orm/libsql";
-import { createClient } from "@libsql/client";
+import { drizzle } from 'drizzle-orm/better-sqlite3';
+import Database from 'better-sqlite3';
 
-const client = createClient({ 
-  url: "file:local.db" 
-});
-
-export const db = drizzle(client);
+const sqlite = new Database('local.db'); // Just the filename, no file: prefix
+export const db = drizzle(sqlite);
